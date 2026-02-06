@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Unbounded:wght@200;300;400;500;600;700;800;900&family=Geologica:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Тёмная тема (по умолчанию) */
+  --bg-primary: #121212;
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  --bg-card: rgba(255, 255, 255, 0.08);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  
+  /* Dynamic weather colors */
+  --accent-color: #D4A574;
+  --accent-glow: rgba(212, 165, 116, 0.4);
+  --accent-secondary: #E8B87D;
+  
+  /* Liquid gradient colors */
+  --liquid-1: rgba(212, 165, 116, 0.15);
+  --liquid-2: rgba(255, 200, 150, 0.1);
+  --liquid-3: rgba(180, 140, 100, 0.08);
+  
+  /* Weather data variables */
+  --wind-speed: 10;
+  --wind-direction: 45;
+  --temperature: 24;
+  --humidity: 67;
+  --uv-index: 5;
+  --visibility: 10;
+}
+
+/* Светлая тема */
+[data-theme="light"] {
+  --bg-primary: #f8f6f3;
+  --bg-secondary: rgba(0, 0, 0, 0.03);
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --text-primary: #1a1a1a;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-muted: rgba(0, 0, 0, 0.4);
+  --accent-glow: rgba(212, 165, 116, 0.2);
+  --liquid-1: rgba(212, 165, 116, 0.1);
+  --liquid-2: rgba(255, 200, 150, 0.08);
+  --liquid-3: rgba(180, 140, 100, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Geologica', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Typography classes */
+.font-display {
+  font-family: 'Unbounded', sans-serif;
+}
+
+.font-accent {
+  font-family: 'Comfortaa', cursive;
+}
+
+.font-body {
+  font-family: 'Geologica', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+/* Glass morphism utility */
+.glass {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .glass {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 3D Card effect */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.card-3d:hover {
+  transform: translateY(-5px) rotateX(5deg);
+}
+
+/* Liquid gradient background */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.liquid-bg::before,
+.liquid-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: liquid-move 20s ease-in-out infinite;
+}
+
+.liquid-bg::before {
+  width: 600px;
+  height: 600px;
+  background: var(--liquid-1);
+  top: -200px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.liquid-bg::after {
+  width: 500px;
+  height: 500px;
+  background: var(--liquid-2);
+  bottom: -150px;
+  left: -100px;
+  animation-delay: -10s;
+}
+
+.liquid-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: liquid-move 25s ease-in-out infinite;
+}
+
+.liquid-blob-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--liquid-3);
+  top: 40%;
+  left: 30%;
+  animation-delay: -5s;
+}
+
+.liquid-blob-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--liquid-1);
+  top: 60%;
+  right: 20%;
+  animation-delay: -15s;
+}
+
+@keyframes liquid-move {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(50px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-30px, 50px) scale(0.9);
+  }
+  75% {
+    transform: translate(-50px, -20px) scale(1.05);
+  }
+}
+
+/* Weather-specific themes */
+.theme-clear {
+  --accent-color: #D4A574;
+  --accent-secondary: #E8B87D;
+  --accent-glow: rgba(212, 165, 116, 0.4);
+  --liquid-1: rgba(212, 165, 116, 0.15);
+  --liquid-2: rgba(255, 200, 150, 0.1);
+  --liquid-3: rgba(180, 140, 100, 0.08);
+}
+
+.theme-clouds {
+  --accent-color: #8B9DC3;
+  --accent-secondary: #A8B8D8;
+  --accent-glow: rgba(139, 157, 195, 0.4);
+  --liquid-1: rgba(139, 157, 195, 0.15);
+  --liquid-2: rgba(168, 184, 216, 0.1);
+  --liquid-3: rgba(120, 140, 180, 0.08);
+}
+
+.theme-rain {
+  --accent-color: #4ECDC4;
+  --accent-secondary: #6EDDD6;
+  --accent-glow: rgba(78, 205, 196, 0.4);
+  --liquid-1: rgba(78, 205, 196, 0.15);
+  --liquid-2: rgba(110, 221, 214, 0.1);
+  --liquid-3: rgba(60, 180, 170, 0.08);
+}
+
+.theme-snow {
+  --accent-color: #A8D8EA;
+  --accent-secondary: #C5E8F5;
+  --accent-glow: rgba(168, 216, 234, 0.4);
+  --liquid-1: rgba(168, 216, 234, 0.15);
+  --liquid-2: rgba(197, 232, 245, 0.1);
+  --liquid-3: rgba(140, 200, 220, 0.08);
+}
+
+.theme-storm {
+  --accent-color: #9B7ED9;
+  --accent-secondary: #B8A0E8;
+  --accent-glow: rgba(155, 126, 217, 0.4);
+  --liquid-1: rgba(155, 126, 217, 0.15);
+  --liquid-2: rgba(184, 160, 232, 0.1);
+  --liquid-3: rgba(130, 100, 190, 0.08);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* shadcn/ui variables */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
