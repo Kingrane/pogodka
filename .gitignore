@@ -36,4 +36,4 @@ Thumbs.db
 .eslintcache
 
 # Vercel
-.vercel
+.vercel.json

@@ -9,49 +9,53 @@ const FilmGrain = () => {
 
     const ctx = canvas.getContext('2d');
     let animationId;
+    let isActive = true;
 
+    // Use smaller resolution for better performance
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = Math.floor(window.innerWidth / 2);
+      canvas.height = Math.floor(window.innerHeight / 2);
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
     };
 
     resize();
     window.addEventListener('resize', resize);
 
     const generateNoise = () => {
-      const imageData = ctx.createImageData(canvas.width, canvas.height);
+      const w = canvas.width;
+      const h = canvas.height;
+      const imageData = ctx.createImageData(w, h);
       const data = imageData.data;
+      const size = w * h * 4;
 
-      for (let i = 0; i < data.length; i += 4) {
+      // Optimized noise generation
+      for (let i = 0; i < size; i += 4) {
         const value = Math.random() * 255;
-        data[i] = value;     // R
-        data[i + 1] = value; // G
-        data[i + 2] = value; // B
-        data[i + 3] = 15;    // A (opacity - very subtle)
+        data[i] = value;
+        data[i + 1] = value;
+        data[i + 2] = value;
+        data[i + 3] = 20;
       }
 
       ctx.putImageData(imageData, 0, 0);
     };
 
+    // Update every 100ms instead of every frame
     const animate = () => {
+      if (!isActive) return;
       generateNoise();
-      animationId = requestAnimationFrame(animate);
+      animationId = setTimeout(() => {
+        animationId = requestAnimationFrame(animate);
+      }, 100);
     };
 
-    // Lower frame rate for better performance (every 3rd frame)
-    let frameCount = 0;
-    const throttledAnimate = () => {
-      frameCount++;
-      if (frameCount % 3 === 0) {
-        generateNoise();
-      }
-      animationId = requestAnimationFrame(throttledAnimate);
-    };
-
-    throttledAnimate();
+    animate();
 
     return () => {
+      isActive = false;
       window.removeEventListener('resize', resize);
+      clearTimeout(animationId);
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -60,9 +64,10 @@ const FilmGrain = () => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-[100]"
-      style={{ 
-        opacity: 0.03,
+      style={{
+        opacity: 0.02,
         mixBlendMode: 'overlay',
+        imageRendering: 'pixelated',
       }}
     />
   );

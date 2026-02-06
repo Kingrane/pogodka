@@ -128,30 +128,41 @@ export const WeatherProvider = ({ children }) => {
         });
       });
 
-      // Generate hourly forecast from API data
-      const hourly = [];
-      const currentHour = new Date().getHours();
-      
-      forecastData.list.slice(0, 8).forEach((item, i) => {
-        const hour = (currentHour + i * 3) % 24;
-        const type = item.weather[0].main.toLowerCase();
-        let icon = 'sun';
-        if (type.includes('cloud')) icon = hour > 6 && hour < 20 ? 'partlyCloudy' : 'moon';
-        if (type.includes('rain')) icon = 'rain';
-        if (type.includes('snow')) icon = 'snow';
-        if (type.includes('storm')) icon = 'storm';
-        if (hour < 6 || hour > 20) icon = 'moon';
+    // Generate hourly forecast from API data (3-hour intervals)
+    const hourly = [];
+    const now = new Date();
 
-        hourly.push({
-          hour: hour,
-          temp: Math.round(item.main.temp),
-          humidity: item.main.humidity,
-          windSpeed: Math.round(item.wind.speed * 3.6),
-          description: weatherTranslations[item.weather[0].description] || item.weather[0].description,
-          icon: icon,
-          isDay: hour >= 6 && hour <= 20,
-        });
+    forecastData.list.slice(0, 8).forEach((item) => {
+      const date = new Date(item.dt * 1000);
+      const hour = date.getHours();
+      const type = item.weather[0].main.toLowerCase();
+      let icon = 'sun';
+
+      // Determine icon based on weather type and time of day
+      if (type.includes('rain')) {
+        icon = 'rain';
+      } else if (type.includes('snow')) {
+        icon = 'snow';
+      } else if (type.includes('storm') || type.includes('thunder')) {
+        icon = 'storm';
+      } else if (type.includes('cloud')) {
+        icon = (hour >= 6 && hour <= 20) ? 'partlyCloudy' : 'moon';
+      } else {
+        // Clear sky - check time
+        icon = (hour >= 6 && hour <= 20) ? 'sun' : 'moon';
+      }
+
+      hourly.push({
+        hour: hour,
+        temp: Math.round(item.main.temp),
+        humidity: item.main.humidity,
+        windSpeed: Math.round(item.wind.speed * 3.6),
+        description: weatherTranslations[item.weather[0].description] || item.weather[0].description,
+        icon: icon,
+        isDay: hour >= 6 && hour <= 20,
+        dt: item.dt,
       });
+    });
 
       setWeatherData(transformedWeather);
       setHourlyForecast(hourly);

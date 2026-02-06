@@ -1,0 +1,210 @@
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="200" 
+  height="200" 
+  viewBox="0 0 200 200">
+    
+  <defs>
+    <!-- Background gradient: light sky blue to deeper blue (subtle cool silver-blue tone for premium feel) -->
+    <linearGradient 
+      id="bgGradient" 
+      x1="0.15" 
+      y1="0.15" 
+      x2="0.85" 
+      y2="0.85" 
+      gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#A8D0FF" />
+      <stop offset="48%" stop-color="#7EBEFF" />
+      <stop offset="100%" stop-color="#4A9FE8" />
+    </linearGradient>
+    
+    <!-- Sun gradient: bright golden yellow to warm orange (radial for dimensional, premium glow) -->
+    <radialGradient 
+      id="sunGradient" 
+      cx="34%" 
+      cy="29%" 
+      r="78%" 
+      fx="26%" 
+      fy="23%" 
+      gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#FFFB6E" />
+      <stop offset="42%" stop-color="#FFEA3F" />
+      <stop offset="100%" stop-color="#FFCB1E" />
+    </radialGradient>
+  </defs>
+
+  <!-- Premium rounded square background (Swiss minimalism with generous rounding) -->
+  <!-- Slight padding for clean framing and scalability -->
+  <rect 
+    x="6" 
+    y="6" 
+    rx="46" 
+    ry="46" 
+    width="188" 
+    height="188" 
+    fill="url(#bgGradient)" />
+
+  <!-- Sun with rays group (centered slightly adjusted for cloud balance) -->
+  <!-- Sun rays extend to ~87 units from center. Sun core radius ~47.5 -->
+  <g transform="translate(98,99)">
+    
+    <!-- Long rays (length ~31, thickness ~7.5) at 0°, 60°, 120°, 180°, 240°, 300° -->
+    
+    <!-- Long ray at 0° (pointing up) -->
+    <g transform="rotate(0)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Long ray at 60° -->
+    <g transform="rotate(60)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Long ray at 120° -->
+    <g transform="rotate(120)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Long ray at 180° (pointing down) -->
+    <g transform="rotate(180)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Long ray at 240° -->
+    <g transform="rotate(240)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Long ray at 300° -->
+    <g transform="rotate(300)">
+      <rect 
+        x="-3.75" 
+        y="-88" 
+        width="7.5" 
+        height="31.5" 
+        rx="3.75" 
+        fill="#FFEA3F" />
+    </g>
+
+    <!-- Short rays (length ~21.5, thickness ~4.8) at 30°, 90°, 150°, 210°, 270°, 330° -->
+    
+    <!-- Short ray at 30° -->
+    <g transform="rotate(30)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Short ray at 90° (pointing right) -->
+    <g transform="rotate(90)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Short ray at 150° -->
+    <g transform="rotate(150)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Short ray at 210° -->
+    <g transform="rotate(210)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Short ray at 270° (pointing left) -->
+    <g transform="rotate(270)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+    
+    <!-- Short ray at 330° -->
+    <g transform="rotate(330)">
+      <rect 
+        x="-2.4" 
+        y="-78" 
+        width="4.8" 
+        height="21.5" 
+        rx="2.4" 
+        fill="#FFEA3F" />
+    </g>
+
+    <!-- Sun core circle (drawn last so it sits on top of inner ray edges) -->
+    <!-- Radius chosen for balanced proportion with rays and cloud overlap -->
+    <circle 
+      r="47.5" 
+      fill="url(#sunGradient)" />
+
+  </g>
+
+  <!-- Cloud shape (drawn last to sit in front of sun for classic weather icon depth) -->
+  <!-- Positioned with slight right and vertical offset for natural sun-behind-cloud overlap -->
+  <!-- Cloud is soft white with a premium, slightly warm off-white tone for elegance against blue bg -->
+  <g transform="translate(126,96.5)">
+    <path 
+      d="M -46,9 
+        C -46,-13 -30.5,-26 -13,-26 
+        C -4.5,-38 18,-38 30.5,-19.5 
+        C 46,-19 60,-6.5 60,10 
+        C 60,27.5 41,38.5 19.5,38.5 
+        C 8.5,48.5 -13.5,48 -27.5,35.5 
+        C -41,34.5 -46,24 -46,9 z" 
+      fill="#FAFAF7" />
+  </g>
+
+</svg>
