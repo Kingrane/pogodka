@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Search, Sun, Moon, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -13,16 +13,6 @@ import {
 const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangToggle }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Track scroll for glass effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -42,45 +32,36 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ${
-          isScrolled ? 'glass backdrop-blur-xl bg-[var(--bg-card)]/80' : ''
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
+      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 glass backdrop-blur-xl rounded-2xl max-w-[calc(100vw-2rem)] w-auto">
+        <div className="flex items-center justify-between gap-6">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3"
           >
-            <span className="font-display text-2xl font-bold tracking-tight">
+            <span className="font-display text-xl font-bold tracking-tight">
               pogodka
             </span>
           </motion.div>
 
-          {/* Controls */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2"
           >
-            {/* Language toggle */}
             <Button
               variant="ghost"
               onClick={onLangToggle}
-              className="glass hover:bg-white/10 px-3 py-2 h-10 flex items-center gap-2 rounded-xl"
+              className="hover:bg-white/10 px-3 py-2 h-9 flex items-center gap-2 rounded-xl"
             >
               <Globe className="w-4 h-4" />
-              <span className="text-sm font-medium min-w-[20px]">{currentLang.toUpperCase()}</span>
+              <span className="text-sm font-medium">{currentLang.toUpperCase()}</span>
             </Button>
 
-            {/* Theme toggle */}
             <Button
               variant="ghost"
               size="icon"
               onClick={onThemeToggle}
-              className="glass hover:bg-white/10"
+              className="hover:bg-white/10 w-9 h-9"
             >
               <AnimatePresence mode="wait">
                 {currentTheme === 'dark' ? (
@@ -107,12 +88,11 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
               </AnimatePresence>
             </Button>
 
-            {/* Search button */}
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsSearchOpen(true)}
-              className="glass hover:bg-white/10"
+              className="hover:bg-white/10 w-9 h-9"
             >
               <Search className="w-5 h-5" />
             </Button>
@@ -120,7 +100,6 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
         </div>
       </header>
 
-      {/* Search Dialog */}
       <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
         <DialogContent className="glass border-none max-w-md">
           <DialogHeader>
@@ -134,7 +113,7 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
                 placeholder={t.placeholder}
                 className="flex-1 glass border-[var(--accent-color)]/30 focus:border-[var(--accent-color)]"
               />
-              <Button 
+              <Button
                 type="submit"
                 className="bg-[var(--accent-color)] hover:bg-[var(--accent-secondary)] text-white"
               >

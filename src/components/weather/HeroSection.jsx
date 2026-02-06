@@ -40,7 +40,7 @@ const HeroSection = ({ weatherData, selectedHour, hourlyForecast, onTimeChange, 
   // Если нет данных - показываем загрузку
   if (!weatherData) {
     return (
-      <section className="min-h-screen flex items-center justify-center">
+      <section className="min-h-screen flex items-center justify-center pt-20">
         <div className="text-center">
           <motion.div
             animate={{ rotate: 360 }}
@@ -78,7 +78,7 @@ const HeroSection = ({ weatherData, selectedHour, hourlyForecast, onTimeChange, 
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 pb-12 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-28 pb-12 overflow-hidden">
       {/* Main content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end max-w-7xl mx-auto w-full">
         
