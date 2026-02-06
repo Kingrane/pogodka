@@ -32,8 +32,8 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
 
   return (
     <>
-      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 glass backdrop-blur-xl rounded-2xl max-w-[calc(100vw-2rem)] w-auto">
-        <div className="flex items-center justify-between gap-6">
+      <header className="fixed top-4 left-4 right-4 z-50 px-6 py-3 glass backdrop-blur-xl rounded-2xl">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
