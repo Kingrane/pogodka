@@ -38,7 +38,7 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <span className="font-display text-xl font-bold tracking-tight">
+            <span className="font-display text-xl font-bold tracking-tight ml-2">
               pogodka
             </span>
           </motion.div>
@@ -46,7 +46,7 @@ const Header = ({ onSearch, currentTheme, onThemeToggle, currentLang, onLangTogg
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 mr-2"
           >
             <Button
               variant="ghost"
